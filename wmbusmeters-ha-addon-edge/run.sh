@@ -6,6 +6,10 @@ cat ${CONFIG_PATH}
 if [ ! -s "${CONFIG_PATH}" ];
 then
     echo '{"data_path": "/config/wmbusmeters", "enable_mqtt_discovery": "false", "conf": {"loglevel": "normal", "device": "auto:t1", "donotprobe": "/dev/ttyAMA0", "logtelegrams": "false", "format": "json", "logfile": "/dev/stdout", "shell": "/wmbusmeters/mosquitto_pub.sh \"wmbusmeters/$METER_NAME\" \"$METER_JSON\""}, "meters": [{"name": "ExampleMeter", "driver": "amiplus", "id": "12345678", "key": "11223344556677889900"}], "mqtt": {}}' | jq . > /data/options.json
+    curl -X POST -H "Authorization: Bearer $SUPERVISOR_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{"options": {"data_path": "/config/wmbusmeters", "enable_mqtt_discovery": "false", "conf": {"loglevel": "normal", "device": "auto:t1", "donotprobe": "/dev/ttyAMA0", "logtelegrams": "false", "format": "json", "logfile": "/dev/stdout", "shell": "/wmbusmeters/mosquitto_pub.sh \"wmbusmeters/$METER_NAME\" \"$METER_JSON\""}, "meters": [{"name": "ExampleMeter", "driver": "amiplus", "id": "12345678", "key": "11223344556677889900"}], "mqtt": {}}}' \
+    http://supervisor/addons/self/options 
 fi
 
 CONFIG_DATA_PATH=$(bashio::config 'data_path')
