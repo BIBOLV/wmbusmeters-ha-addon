@@ -2,7 +2,7 @@
 
 CONFIG_PATH=/data/options.json
 
-if bashio::config.false "data_path"
+if [ ! -s "${CONFIG_PATH}" ]; then
 then
     echo '{"data_path": "/config/wmbusmeters", "enable_mqtt_discovery":, "conf": {"loglevel": "normal", "device": "auto:t1", "donotprobe": "/dev/ttyAMA0", "logtelegrams": false, "format": "json", "logfile": "/dev/stdout", "shell": "/wmbusmeters/mosquitto_pub.sh \"wmbusmeters/$METER_NAME\" \"$METER_JSON\""}, "meters": [{"name": "ExampleMeter", "driver": "amiplus", "id": "12345678", "key": "11223344556677889900"}], "mqtt": {}}' > /data/options.json
 fi
