@@ -24,4 +24,3 @@ Please refer to the wmbusmeters [documentation](https://github.com/weetmuts/wmbu
 Issues are being tracked centrally, so if you find any issues with the add-on, please check the [central issue tracker](https://github.com/weetmuts/wmbusmeters/issues) for similar issues and open new if needed. 
 
 Feel free to [create a PR](CONTRIBUTING.md) for fixes and enhancements here.
-
