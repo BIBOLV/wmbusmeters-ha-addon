@@ -13,10 +13,7 @@ window.addEventListener('load', () => {
     fetch(`/get_json`)
         .then(response => response.json())
         .then(data => {
-            let dataKey = 'data';
-            if (dataKey in data) {} else {dataKey = 'options';}
-               console.log(dataKey)
-            const dataForParse = data[dataKey];
+            const dataForParse = data;
             Object.entries(dataForParse).forEach(([key, value]) => {
                 switch (key) {
                     case 'data_path':
@@ -28,10 +25,10 @@ window.addEventListener('load', () => {
                         }
                         break;
                     case 'conf':
-                        console.log(dataForParse);
+                        //console.log(dataForParse);
                         Object.entries(dataForParse[key]).forEach(([key1, value1]) => {
                             renderJsonPair(key1, escapeHtml(value1));
-                            console.log(value1);
+                            //console.log(value1);
                         });
                         break;
                     case 'meters':
@@ -106,7 +103,7 @@ window.addEventListener('load', () => {
         renderSection();
     });
 
-    function renderSection(keys=['', '', ''], values=['', '', '']) {
+    function renderSection(keys=['name', 'driver', 'id', 'key'], values=['', '', '', '']) {
         const newSection = document.createElement('div');
         newSection.className = 'json-section';
         let newSectionHtml = '';
@@ -211,7 +208,7 @@ window.addEventListener('load', () => {
         let sectionsData = []
         const sections = document.querySelectorAll('.json-section');
         for (let i = 0; i < sections.length; i++) {
-            let sectionData = {'name': `Meter${i + 1}`};
+            let sectionData = {};
             const sectionKeys = sections[i].querySelectorAll('.section-key');
             const sectionValues = sections[i].querySelectorAll('.section-value');
             for (let i = 0; i < sectionKeys.length; i++) {
@@ -221,13 +218,11 @@ window.addEventListener('load', () => {
             sectionsData.push(sectionData)
         }
         const json = {
-            'options': {
-                'data_path': data_path,
-                'enable_mqtt_discovery': mqtt_status,
-                'conf': confData,
-                'meters': sectionsData,
-                'mqtt': mqttData
-                }
+            'data_path': data_path,
+            'enable_mqtt_discovery': mqtt_status,
+            'conf': confData,
+            'meters': sectionsData,
+            'mqtt': mqttData
         };
 
 
