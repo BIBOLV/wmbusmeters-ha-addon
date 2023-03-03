@@ -25,6 +25,9 @@
       "mqtt:need"
     ],
     "map": [
-      "share:rw"
+      "share:rw",
+      "config:rw"
     ],
-}
+    "options": {},
+    "schema": false
+} 
