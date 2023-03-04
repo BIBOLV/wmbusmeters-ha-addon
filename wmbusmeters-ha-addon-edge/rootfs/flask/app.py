@@ -24,10 +24,8 @@ def save_json_to_file():
         error_message = str(e)
         return jsonify({'error': error_message}), 400
 
-    return jsonify({'message': 'Data saved successfully and addon restarted.'})
-
     response = requests.post(RESTART_URL, headers=URL_HEADER)
-
+    return jsonify({'message': 'Data saved successfully and addon restarted.'})
 
 @app.route('/get_json')
 def get_json():
@@ -39,6 +37,4 @@ def get_json():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    #serve(app, host="127.0.0.1", port=5000)
-    app.debug = True
-    app.run(host="127.0.0.1")
+    serve(app, host="127.0.0.1", port=5000)
