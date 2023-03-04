@@ -28,6 +28,6 @@
       "share:rw",
       "config:rw"
     ],
-    "options": {},
+    "options": null,
     "schema": false
 } 
