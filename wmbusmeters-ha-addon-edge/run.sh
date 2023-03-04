@@ -4,12 +4,12 @@ CONFIG_PATH=/data/options_custom.json
 
 if jq -e '. == {}' <"${CONFIG_PATH}" >/dev/null
 then
-    echo '{"data_path": "/config/wmbusmeters", "enable_mqtt_discovery": "false", "conf": {"loglevel": "normal", "device": "auto:t1", "donotprobe": "/dev/ttyAMA0", "logtelegrams": "false", "format": "json", "logfile": "/dev/stdout", "shell": "/wmbusmeters/mosquitto_pub.sh \"wmbusmeters/$METER_NAME\" \"$METER_JSON\""}, "meters": [{"name": "ExampleMeter", "driver": "amiplus", "id": "12345678", "key": "A1223344556677889900"}], "mqtt": {}}' | jq . > ${CONFIG_PATH}
+    echo '{"data_path": "/config/wmbusmeters", "enable_mqtt_discovery": "false", "conf": {"loglevel": "normal", "device": "auto:t1", "donotprobe": "/dev/ttyAMA0", "logtelegrams": "false", "format": "json", "logfile": "/dev/stdout", "shell": "/wmbusmeters/mosquitto_pub.sh \"wmbusmeters/$METER_NAME\" \"$METER_JSON\""}, "meters": [{"name": "ExampleMeter", "driver": "amiplus", "id": "12345678", "key": "NOKEY"}], "mqtt": {}}' | jq . > ${CONFIG_PATH}
 fi
 
-CONFIG_DATA_PATH=$(bashio::config 'data_path')
-CONFIG_CONF=$(bashio::jq "${CONFIG_PATH}" '.conf')
-CONFIG_METERS=$(bashio::jq "${CONFIG_PATH}" '.meters')
+CONFIG_DATA_PATH=$(bashio::jq '.data_path' "${CONFIG_PATH}")
+CONFIG_CONF=$(bashio::jq '.conf' "${CONFIG_PATH}")
+CONFIG_METERS=$(bashio::jq '.meters' "${CONFIG_PATH}")
 
 bashio::log.info "CONFIG_CONF ..."
 bashio::log.info "${CONFIG_CONF}"

@@ -25,7 +25,7 @@ def save_json_to_file():
         return jsonify({'error': error_message}), 400
 
     #response = requests.post(RESTART_URL, headers=URL_HEADER)
-    return jsonify({'message': 'Data saved successfully and addon restarted.'})
+    return jsonify({'message': 'Config saved successfully.'})
 
 @app.route('/get_json')
 def get_json():

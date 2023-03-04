@@ -6,7 +6,7 @@
     "arch": ["armv7", "aarch64", "amd64"],
     "url": "https://github.com/BIBOLV/wmbusmeters-ha-addon",
     "image": "bibolv/wmbusmeters-ha-addon-edge-{arch}",
-    "panel_icon": "mdi:home-wireless",
+    "panel_icon": "mdi:home-automation",
     "init" : false,
     "startup": "application",
     "ingress": "true",
