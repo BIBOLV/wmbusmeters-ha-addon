@@ -2,7 +2,7 @@ import json, requests, os
 from flask import Flask, jsonify, render_template, request
 from waitress import serve
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 
 cfgfile = '/data/options.json'
 RESTART_URL = "http://supervisor/addons/self/restart"
