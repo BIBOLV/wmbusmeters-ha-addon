@@ -13,24 +13,20 @@ def index():
     return render_template('index.html')
 
 @app.route('/save_json', methods=['POST'])
-def save_json():
+def save_json_to_file():
     try:
         request_json = request.json
         data = request_json['data']
         with open(cfgfile, 'w') as file:
             json.dump(data, file, indent=True)
-        response = requests.post(RESTART_URL, headers=URL_HEADER)
-        response.raise_for_status()
-
-    except requests.exceptions.RequestException as e:
-        error_message = str(e)
-        return jsonify({'error': error_message}), 500
 
     except ValueError as e:
         error_message = str(e)
         return jsonify({'error': error_message}), 400
 
     return jsonify({'message': 'Data saved successfully and addon restarted.'})
+
+    response = requests.post(RESTART_URL, headers=URL_HEADER)
 
 
 @app.route('/get_json')
