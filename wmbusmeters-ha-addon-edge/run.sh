@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 
-CONFIG_PATH=/data/options.json
+CONFIG_PATH=/data/options_custom.json
 
 if jq -e '. == {}' <"${CONFIG_PATH}" >/dev/null
 then

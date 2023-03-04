@@ -4,7 +4,7 @@ from waitress import serve
 
 app = Flask(__name__, static_url_path='')
 
-cfgfile = '/data/options.json'
+cfgfile = '/data/options_custom.json'
 RESTART_URL = "http://supervisor/addons/self/restart"
 URL_HEADER = { "Authorization": "Bearer " + os.environ.get('SUPERVISOR_TOKEN'), "content-type": "application/json" }
 
@@ -24,7 +24,7 @@ def save_json_to_file():
         error_message = str(e)
         return jsonify({'error': error_message}), 400
 
-    response = requests.post(RESTART_URL, headers=URL_HEADER)
+    #response = requests.post(RESTART_URL, headers=URL_HEADER)
     return jsonify({'message': 'Data saved successfully and addon restarted.'})
 
 @app.route('/get_json')

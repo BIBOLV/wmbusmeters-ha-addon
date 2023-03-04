@@ -6,6 +6,7 @@
     "arch": ["armv7", "aarch64", "amd64"],
     "url": "https://github.com/BIBOLV/wmbusmeters-ha-addon",
     "image": "bibolv/wmbusmeters-ha-addon-edge-{arch}",
+    "panel_icon": "mdi:home-wireless",
     "init" : false,
     "startup": "application",
     "ingress": "true",
@@ -28,6 +29,6 @@
       "share:rw",
       "config:rw"
     ],
-    "options": null,
+    "options": {},
     "schema": false
 } 
