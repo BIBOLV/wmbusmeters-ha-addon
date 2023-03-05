@@ -1,6 +1,7 @@
 import json, requests, os
 from flask import Flask, jsonify, render_template, request
 from waitress import serve
+from threading import Thread
 
 app = Flask(__name__, static_url_path='')
 
@@ -24,8 +25,12 @@ def save_json_to_file():
         error_message = str(e)
         return jsonify({'error': error_message}), 400
 
-    #response = requests.post(RESTART_URL, headers=URL_HEADER)
-    return jsonify({'message': 'Config saved successfully.'})
+    Thread(target=restart_call, args=()).start()
+
+    return jsonify({'message': 'Config saved and addon restarted successfully.'})
+
+def restart_call():
+    requests.post(RESTART_URL, headers=URL_HEADER)
 
 @app.route('/get_json')
 def get_json():
