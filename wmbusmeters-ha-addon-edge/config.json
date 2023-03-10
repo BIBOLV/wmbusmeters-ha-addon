@@ -26,5 +26,5 @@
     "map": [
       "share:rw",
       "config:rw"
-    ],
+    ]
 } 
