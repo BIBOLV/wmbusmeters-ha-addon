@@ -9,7 +9,7 @@
     "panel_icon": "mdi:home-automation",
     "init" : false,
     "startup": "application",
-    "ingress": "true",
+    "ingress": true,
     "boot": "auto",
     "devices": ["/dev/ttyUSB0", "/dev/ttyAMA0"],
     "usb": true,
@@ -29,6 +29,4 @@
       "share:rw",
       "config:rw"
     ],
-    "options": {},
-    "schema": false
 } 
