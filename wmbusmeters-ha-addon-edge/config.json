@@ -24,17 +24,18 @@
       "mqtt:need"
     ],
     "map": [
+      "data:rw",
       "share:rw",
       "config:rw"
     ],
     "options": {
       "conf": {
         "reset_config": false
-      },
+      }
     },
     "schema": {
       "conf": {
         "reset_config": bool
-      },
+      }
     }
 } 
