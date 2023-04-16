@@ -2,6 +2,8 @@
 
 CONFIG_PATH=/data/options_custom.json
 RESET_CONF=$(bashio::config 'reset_config')
+#RESET_CONF=$(bashio::jq "/data/options.json" '.reset_config')
+bashio::log.info "${RESET_CONF}"
 
 if [ ! -f ${CONFIG_PATH} ]
 then
