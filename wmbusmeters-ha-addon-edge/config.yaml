@@ -1,5 +1,5 @@
 name: '[edge] Wmbusmeters (W-MBus to MQTT)'
-version: 1.11.0-6-8
+version: 1.11.0-6-9
 slug: wmbusmeters-ha-addon-edge
 description: Acquire utility meter readings using the wireless mbus protocol (WMBUS)
 arch:
