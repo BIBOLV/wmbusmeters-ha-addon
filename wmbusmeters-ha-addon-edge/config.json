@@ -34,7 +34,7 @@
     },
     "schema": {
       "conf": {
-        "reset_config": bool
+        "reset_config": "bool"
       }
     }
-} 
+}
