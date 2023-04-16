@@ -30,7 +30,7 @@
     "options": {
       "reset_config": false
     },
-    schema: {
+    "schema": {
       "reset_config": bool
     }
 } 
