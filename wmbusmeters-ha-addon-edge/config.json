@@ -26,5 +26,11 @@
     "map": [
       "share:rw",
       "config:rw"
-    ]
+    ],
+    "options": {
+      "reset_config": false
+    },
+    schema: {
+      "reset_config": bool
+    }
 } 

@@ -1,10 +1,18 @@
 #!/usr/bin/with-contenv bashio
 
 CONFIG_PATH=/data/options_custom.json
+RESET_CONF=$(bashio::jq "/data/options.json" '.reset_config')
 
 if [ ! -f ${CONFIG_PATH} ]
 then
     echo '{"data_path": "/config/wmbusmeters", "enable_mqtt_discovery": "false", "conf": {"loglevel": "normal", "device": "auto:t1", "donotprobe": "/dev/ttyAMA0", "logtelegrams": "false", "format": "json", "logfile": "/dev/stdout", "shell": "/wmbusmeters/mosquitto_pub.sh \"wmbusmeters/$METER_NAME\" \"$METER_JSON\""}, "meters": [{"name": "ExampleMeter", "driver": "amiplus", "id": "12345678", "key": "NOKEY"}], "mqtt": {}}' | jq . > ${CONFIG_PATH}
+fi
+
+if [ "${RESET_CONF}" = "true" ]
+then
+    bashio::log.info "RESET CONFIG selected - reseting configuration to default ..."
+    echo '{"data_path": "/config/wmbusmeters", "enable_mqtt_discovery": "false", "conf": {"loglevel": "normal", "device": "auto:t1", "donotprobe": "/dev/ttyAMA0", "logtelegrams": "false", "format": "json", "logfile": "/dev/stdout", "shell": "/wmbusmeters/mosquitto_pub.sh \"wmbusmeters/$METER_NAME\" \"$METER_JSON\""}, "meters": [{"name": "ExampleMeter", "driver": "amiplus", "id": "12345678", "key": "NOKEY"}], "mqtt": {}}' | jq . > ${CONFIG_PATH}
+    echo '{"reset_config": "false"}' | jq . > /data/options.json
 fi
 
 CONFIG_DATA_PATH=$(bashio::jq "${CONFIG_PATH}" '.data_path')
