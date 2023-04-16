@@ -24,7 +24,6 @@
       "mqtt:need"
     ],
     "map": [
-      "data:rw",
       "share:rw",
       "config:rw"
     ],
