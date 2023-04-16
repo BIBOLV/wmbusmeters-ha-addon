@@ -28,9 +28,13 @@
       "config:rw"
     ],
     "options": {
-      "reset_config": false
+      "conf": {
+        "reset_config": false
+      },
     },
     "schema": {
-      "reset_config": bool
+      "conf": {
+        "reset_config": bool
+      },
     }
 } 
