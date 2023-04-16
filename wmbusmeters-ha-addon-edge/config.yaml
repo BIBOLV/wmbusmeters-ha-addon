@@ -1,4 +1,4 @@
-name: [edge] Wmbusmeters (W-MBus to MQTT)
+name: '[edge] Wmbusmeters (W-MBus to MQTT)'
 version: 1.11.0-6-8
 slug: wmbusmeters-ha-addon-edge
 description: Acquire utility meter readings using the wireless mbus protocol (WMBUS)
@@ -9,6 +9,7 @@ arch:
 url: https://github.com/BIBOLV/wmbusmeters-ha-addon
 image: bibolv/wmbusmeters-ha-addon-edge-{arch}
 panel_icon: mdi:home-automation
+init: false
 ingress: true
 devices:
   - /dev/ttyUSB0
@@ -30,4 +31,3 @@ options:
   reset_config: false
 schema:
   reset_config: bool
-init: false
