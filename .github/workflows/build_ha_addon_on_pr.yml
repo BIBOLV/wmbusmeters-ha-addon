@@ -22,21 +22,21 @@ jobs:
         with:
           token: '${{ secrets.HA_PAT }}'
 
-      - name: Update README and set version in config.json
+      - name: Update README and set version in config
         id: version
         run: |
-          if [[ $(cat wmbusmeters-ha-addon-edge/config.json | grep version | awk -F \- '{print NF-1}') == 1 ]]; then
-            v=$(cat wmbusmeters-ha-addon-edge/config.json | grep version | cut -d\" -f4) 
+          if [[ $(cat wmbusmeters-ha-addon-edge/config.yaml | grep version | awk -F \- '{print NF-1}') == 1 ]]; then
+            v=$(cat wmbusmeters-ha-addon-edge/config.yaml | grep version | cut -d\" -f4) 
             ver="${v}-1"
           else 
-            v=$(cat wmbusmeters-ha-addon-edge/config.json | grep version | cut -d\" -f4)
+            v=$(cat wmbusmeters-ha-addon-edge/config.yaml | grep version | cut -d\" -f4)
             fp=${v%-*}
             lc=${v##*-}
             nlc=$((++lc))
             ver="$fp-$nlc"
           fi
           echo "version=$ver" >> $GITHUB_OUTPUT
-          sed -i "s|\s\{4,\}\"version\".*|    \"version\": \"$ver\"\,|g" wmbusmeters-ha-addon-edge/config.json
+          sed -i "s|version.*|version: $ver|g" wmbusmeters-ha-addon-edge/config.yaml
           sed -i "1s|^|## $ver \n- Updated to version [$ver](https://github.com/wmbusmeters/wmbusmeters-ha-addon/commits/main)\n|" wmbusmeters-ha-addon-edge/CHANGELOG.md
 
       - uses: actions/upload-artifact@v3

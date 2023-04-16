@@ -1,0 +1,33 @@
+name: [edge] Wmbusmeters (W-MBus to MQTT)
+version: 1.11.0-6-8
+slug: wmbusmeters-ha-addon-edge
+description: Acquire utility meter readings using the wireless mbus protocol (WMBUS)
+arch:
+  - amd64
+  - armv7
+  - aarch64
+url: https://github.com/BIBOLV/wmbusmeters-ha-addon
+image: bibolv/wmbusmeters-ha-addon-edge-{arch}
+panel_icon: mdi:home-automation
+init: false
+ingress: true
+devices:
+  - /dev/ttyUSB0
+  - /dev/ttyAMA0
+usb: true
+uart: true
+ports:
+  9011/udp: null
+  9022/tcp: null
+ports_description:
+  9011/udp: Netcat udp-listen port
+  9022/tcp: Netcat tcp-listen port
+services:
+  - mqtt:need
+map:
+  - share:rw
+  - config:rw
+options:
+  reset_config: false
+schema:
+  reset_config: bool
