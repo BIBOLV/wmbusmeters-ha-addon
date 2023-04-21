@@ -22,21 +22,21 @@ jobs:
         with:
           token: '${{ secrets.HA_PAT }}'
 
-      - name: Update README and set version in config
+      - name: Update README and set version in config.json
         id: version
         run: |
-          if [[ $(cat wmbusmeters-ha-addon-edge/config.yaml | grep version | awk -F \- '{print NF-1}') == 1 ]]; then
-            v=$(cat wmbusmeters-ha-addon-edge/config.yaml | grep version | awk '{print $2}') 
+          if [[ $(cat wmbusmeters-ha-addon-edge/config.json | grep version | awk -F \- '{print NF-1}') == 1 ]]; then
+            v=$(cat wmbusmeters-ha-addon-edge/config.json | grep version | cut -d\" -f4)
             ver="${v}-1"
-          else 
-            v=$(cat wmbusmeters-ha-addon-edge/config.yaml | grep version | awk '{print $2}')
+          else
+            v=$(cat wmbusmeters-ha-addon-edge/config.json | grep version | cut -d\" -f4)
             fp=${v%-*}
             lc=${v##*-}
             nlc=$((++lc))
             ver="$fp-$nlc"
           fi
           echo "version=$ver" >> $GITHUB_OUTPUT
-          sed -i "s|version.*|version: $ver|g" wmbusmeters-ha-addon-edge/config.yaml
+          sed -i "s|\s\{4,\}\"version\".*|    \"version\": \"$ver\"\,|g" wmbusmeters-ha-addon-edge/config.json
           sed -i "1s|^|## $ver \n- Updated to version [$ver](https://github.com/wmbusmeters/wmbusmeters-ha-addon/commits/main)\n|" wmbusmeters-ha-addon-edge/CHANGELOG.md
 
       - uses: actions/upload-artifact@v3
@@ -52,8 +52,8 @@ jobs:
     strategy:
       matrix:
         addon: ["wmbusmeters"]
-        arch: ["amd64"] #, "armv7", "aarch64"]
-    steps: 
+        arch: ["amd64"]#, "armv7", "aarch64"]
+    steps:
       - uses: actions/download-artifact@v3
         with:
           name: ha-addon_artifact-${{ needs.prepare.outputs.version }}
@@ -61,8 +61,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKERHUB_PASS }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PAT }}
 
       - name: Build ${{ matrix.addon }} ${{ matrix.arch }} HA add-on
         uses: home-assistant/builder@master

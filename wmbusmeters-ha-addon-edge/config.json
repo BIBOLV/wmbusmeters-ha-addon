@@ -1,6 +1,6 @@
 {
     "name": "[edge] Wmbusmeters (W-MBus to MQTT)",
-    "version": "1.11.0-6-9",
+    "version": "1.11.0-6-10",
     "slug": "wmbusmeters-ha-addon-edge",
     "description": "Acquire utility meter readings using the wireless mbus protocol (WMBUS)",
     "arch": ["armv7", "aarch64", "amd64"],
@@ -28,9 +28,9 @@
       "config:rw"
     ],
     "options": {
-      "reset_config": false
+      "reset_config": "no"
     },
     "schema": {
-      "reset_config": "bool?"
+      "reset_config": "list(no|yes)"
     }
 }
