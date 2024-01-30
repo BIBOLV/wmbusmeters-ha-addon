@@ -37,7 +37,7 @@ jobs:
           fi
           echo "version=$ver" >> $GITHUB_OUTPUT
           sed -i "s|\s\{4,\}\"version\".*|    \"version\": \"$ver\"\,|g" wmbusmeters-ha-addon-edge/config.json
-          sed -i "1s|^|## $ver \n- Updated to version [$ver](https://github.com/wmbusmeters/wmbusmeters-ha-addon/commits/main)\n|" wmbusmeters-ha-addon-edge/CHANGELOG.md
+          sed -i "1s|^|## $ver \n- Updated to version [$ver](https://github.com/BIBOLV/wmbusmeters-ha-addon/commits/main)\n|" wmbusmeters-ha-addon-edge/CHANGELOG.md
 
       - uses: actions/upload-artifact@v4
         with:
@@ -61,8 +61,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PAT }}
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PASS }}
 
       - name: Build ${{ matrix.addon }} ${{ matrix.arch }} HA add-on
         uses: home-assistant/builder@master
