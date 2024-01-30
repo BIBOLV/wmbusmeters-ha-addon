@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: '${{ secrets.HA_PAT }}'
 
@@ -22,9 +22,9 @@ jobs:
           rsync -a --delete wmbusmeters-ha-addon-edge/ wmbusmeters-ha-addon/ --exclude CHANGELOG.md
           sed -i 's/\[edge\] //g; s/-edge//g' wmbusmeters-ha-addon/config.json
           sed -i "s|\s\{4,\}\"version\".*|    \"version\": \"${{ github.event.client_payload.ver }}\"\,|g" wmbusmeters-ha-addon/config.json
-          sed -i "1s|^|## ${{ github.event.client_payload.ver }} \n- Updated to version [${{ github.event.client_payload.ver }}](https://github.com/weetmuts/wmbusmeters/blob/master/CHANGES)\n|" wmbusmeters-ha-addon/CHANGELOG.md
+          sed -i "1s|^|## ${{ github.event.client_payload.ver }} \n- Updated to version [${{ github.event.client_payload.ver }}](https://github.com/wmbusmeters/wmbusmeters/blob/master/CHANGES)\n|" wmbusmeters-ha-addon/CHANGELOG.md
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ha-addon_artifact-${{ github.event.client_payload.ver }}
           path: ${{ github.workspace }}
@@ -38,16 +38,16 @@ jobs:
       matrix:
         addon: ["wmbusmeters"]
         arch: ["amd64", "armv7", "aarch64"]
-    steps: 
-      - uses: actions/download-artifact@v3
+    steps:
+      - uses: actions/download-artifact@v4
         with:
           name: ha-addon_artifact-${{ github.event.client_payload.ver }}
 
       - name: Login to DockerHub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKERHUB_PASS }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PAT }}
 
       - name: Build ${{ matrix.addon }} ${{ matrix.arch }} HA add-on
         uses: home-assistant/builder@master
@@ -61,7 +61,7 @@ jobs:
     needs: [prepare, build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: ha-addon_artifact-${{ github.event.client_payload.ver }}
 
